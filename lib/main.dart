@@ -1,7 +1,8 @@
-import 'login.dart';
 import 'package:flutter/material.dart';
 import 'company_registration.dart'; // Import the company registration file
 import 'influencer_registration.dart'; // Import the influencer registration file
+import 'company_home_page.dart'; // Import the CompanyHomePage
+import 'login.dart'; // Import the LoginScreen
 
 void main() {
   runApp(MyApp());
@@ -11,8 +12,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'InfluencerCollab App',
+      title: 'TrendMaster',
       home: WelcomeScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -21,108 +23,97 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'InfluencerCollab',
-          style: TextStyle(
-            fontFamily: 'Pacifico',
-            fontSize: 28,
+      body: Stack(
+        alignment: Alignment.center,
+        children: [
+          // Background Image
+          Image.asset(
+            'assets/images/log5.png',
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover,
           ),
-        ),
-        backgroundColor: Colors.red, // Change the app bar background color to red
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            // Add the image here
-            Image.asset(
-              'assets/images/firstpage.png', // Update the path accordingly
-              width: 150, // Adjust the image size as needed
-            ),
-            SizedBox(height: 20),
-            Container(
-              padding: EdgeInsets.all(20), // Add padding to the container
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.red, // Change the box background color to red
-                  borderRadius: BorderRadius.circular(10),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              // Circular container for the logo with a white background
+              Container(
+                padding: EdgeInsets.only(top: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.purple,
+                      width: 5.0,
+                    ),
+                    color: Colors.white,
+                  ),
+                  padding: EdgeInsets.all(10),
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.white,
+                    child: Container(
+                      width: 180,
+                      height: 180,
+                      child: Image.asset('assets/images/trendmaster.png'),
+                    ),
+                  ),
                 ),
-                padding: EdgeInsets.all(20),
+              ),
+              Spacer(),
+              Padding(
+                padding: const EdgeInsets.only(top: 40, bottom: 40),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Discover the Power of Collaboration',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RegistrationOptionsScreen(),
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.purple,
                       ),
-                      textAlign: TextAlign.center, // Align text to center
+                      child: Text(
+                        'Sign Up',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
                     ),
                     SizedBox(height: 10),
-                    Text(
-                      'Join as an Influencer or Company to Get Started',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[200],
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LoginScreen(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Already have an account? Log In',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
                       ),
-                      textAlign: TextAlign.center, // Align text to center
                     ),
                   ],
                 ),
               ),
-            ),
-            SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                // Navigate to the registration options screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RegistrationOptionsScreen(),
-                  ),
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Colors.red, // Change the button color to red
-              ),
-              child: Text(
-                'Sign Up',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            SizedBox(height: 10),
-            TextButton(
-              onPressed: () {
-                // Navigate to the login screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LoginScreen(),
-                  ),
-                );
-              },
-              child: Text(
-                'Already have an account? Log In',
-                style: TextStyle(
-                  color: Colors.red, // Change text color to red
-                  fontSize: 16,
-                ),
-              ),
-            ),
-          ],
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }
 }
-
-
-
 
 class RegistrationOptionsScreen extends StatelessWidget {
   @override
@@ -130,7 +121,7 @@ class RegistrationOptionsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Registration Options'),
-        backgroundColor: Colors.red, // Change the app bar background color to red
+        backgroundColor: Colors.purple,
       ),
       body: Center(
         child: Column(
@@ -146,7 +137,6 @@ class RegistrationOptionsScreen extends StatelessWidget {
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Navigate to the influencer registration screen
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -155,20 +145,37 @@ class RegistrationOptionsScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.red,
+                primary: Colors.white,
+                side: BorderSide(
+                  color: Colors.purple,
+                  width: 3.0,
+                ),
+                padding: EdgeInsets.all(10),
               ),
-              child: Text(
-                'Influencer',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+              child: Container(
+                width: 60,
+                height: 60,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    'assets/images/influencer_logo.png',
+                    width: 24,
+                    height: 24,
+                  ),
                 ),
               ),
             ),
             SizedBox(height: 10),
+            Text(
+              'Influencer',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
+              ),
+            ),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Navigate to the company registration screen
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -177,14 +184,32 @@ class RegistrationOptionsScreen extends StatelessWidget {
                 );
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.red,
-              ),
-              child: Text(
-                'Company',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
+                primary: Colors.white,
+                side: BorderSide(
+                  color: Colors.purple,
+                  width: 3.0,
                 ),
+                padding: EdgeInsets.all(10),
+              ),
+              child: Container(
+                width: 60,
+                height: 60,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.asset(
+                    'assets/images/company_logo.png',
+                    width: 24,
+                    height: 24,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            Text(
+              'Company',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 14,
               ),
             ),
           ],
@@ -193,7 +218,6 @@ class RegistrationOptionsScreen extends StatelessWidget {
     );
   }
 }
-
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -213,7 +237,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Log In'),
-        backgroundColor: Colors.red, // Make the AppBar red
+        backgroundColor: Color(0xFF7C8FDB), // Make the AppBar red
       ),
       body: Center(
         child: Column(
@@ -296,17 +320,16 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   // Navigate to the appropriate screen based on the role
                   if (selectedRole == 'Company') {
-                    // Navigate to Company Dashboard
-                    // Example:
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => CompanyDashboard(),
-                    //   ),
-                    // );
+                    // Navigate to Company HomePage
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => CompanyHomePage(),
+                      ),
+                    );
                   } else if (selectedRole == 'Influencer') {
                     // Navigate to Influencer Dashboard
-                    // Example:
+                    // You can replace this with the actual screen you want to navigate to
                     // Navigator.push(
                     //   context,
                     //   MaterialPageRoute(
@@ -317,7 +340,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               style: ElevatedButton.styleFrom(
-                primary: Colors.red, // Change the button color to red
+                primary: Color(0xFF7C8FDB), // Change the button color to red
               ),
               child: Text(
                 'Log In',
